@@ -1,4 +1,4 @@
-# collision_checker
+# collision checker
 
 Collision is not supported in Linux, it confuses the NSS process and it creates intermittent issues when user information is requested by `id` or `getent` or similar commands or using system calls like ` getpwnam()` etc.
 This Python script is designed to detect this collisions between local linux system entries (such as usernames, UIDs, group names, and GIDs) and their counterparts in an LDAP (Lightweight Directory Access Protocol) integrated environment. The script checks for collisions across multiple LDAP integration methods (e.g., SSSD, Winbind, LDAP) to ensure the consistency of user and group information between the local system and LDAP.
