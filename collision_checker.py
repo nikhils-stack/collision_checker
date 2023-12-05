@@ -1,6 +1,6 @@
 import subprocess
 
-# Maintainer: Nikhil Suryawanshi
+# Maintainer: Nikhil Suryawanshi <suryawanshin74@gmail.com>
 
 def get_local_usernames():
     try:
@@ -45,10 +45,13 @@ def check_collision(entry, ldap_integration_methods, type_str, conflict_msg, no_
     collision_detected = False
     for ldap_integration_method in ldap_integration_methods:
         getent_cmd = getent_command(ldap_integration_method, type_str)
-        output = subprocess.check_output(getent_cmd.split() + [entry])
-        if output:
-            print(conflict_msg.format(entry, ldap_integration_method))
-            collision_detected = True
+        try:
+            output = subprocess.check_output(getent_cmd.split() + [entry])
+            if output:
+                print(conflict_msg.format(entry, ldap_integration_method))
+                collision_detected = True
+        except subprocess.CalledProcessError:
+            pass
     return not collision_detected
 
 def main():
